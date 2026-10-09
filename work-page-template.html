@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work page template | Will Draper</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+
+<style>
+  /* Tokens from Figma (Will Draper portfolio) */
+  :root {
+    --bg: #fffcf0;
+    --tx: #100f0f;
+    --tx-2: #6f6e69;
+    --ui: #e6e4d9;
+    --accent: #bc5215;
+
+    --serif: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+    --sans: "General Sans", "General Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    --bar-h: 64px;
+    --col: 38rem;      /* tight text column */
+    --wide: 60rem;     /* visuals */
+    --gutter: 24px;
+    --radius: 8px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-padding-top: calc(var(--bar-h) + 16px); }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--tx);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  /* ---------- Site header (not sticky) ---------- */
+  .site-head {
+    height: var(--bar-h);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--gutter);
+  }
+  .site-head a { font-weight: 600; text-decoration: none; }
+
+  /* ---------- Section pills: in flow above Problem, then stick ---------- */
+  .jump {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin-top: 96px;
+    height: var(--bar-h);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--gutter);
+    background: var(--bg);
+  }
+
+  .pills {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 4px;
+    max-width: 100%;
+  }
+  .pills::-webkit-scrollbar { display: none; }
+
+  .pill {
+    flex: 0 0 auto;
+    display: inline-block;
+    padding: 4px 14px;
+    border: 1px solid var(--tx);
+    border-radius: 999px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color .15s, color .15s;
+  }
+  a.pill:hover { background: var(--ui); }
+  a.pill[aria-current="true"] { background: var(--tx); color: var(--bg); }
+
+  @media (max-width: 720px) {
+    .pills { justify-content: flex-start; }
+  }
+
+  /* ---------- Layout ---------- */
+  .col, .wide {
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .col  { max-width: calc(var(--col) + var(--gutter) * 2); }
+  .wide { max-width: calc(var(--wide) + var(--gutter) * 2); }
+
+  .intro { padding-top: 48px; }
+  section { padding-top: 112px; }
+  .jump + section { padding-top: 64px; }
+
+  /* ---------- Type ---------- */
+  h1, h2, h3 {
+    font-family: var(--serif);
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: 0;
+  }
+  h1 { font-size: clamp(28px, 4.2vw, 38px); line-height: 1.2; }
+  h2 { font-size: 23px; line-height: 30px; }
+  h3 { font-size: 19px; line-height: 25px; }
+
+  p { margin: 0; }
+  .col > * + * { margin-top: 20px; }
+  .col > h2 + p, .col > h3 + p { margin-top: 12px; }
+
+  .muted { color: var(--tx-2); }
+  .lead strong { font-weight: 600; color: var(--tx); }
+
+  /* ---------- Meta strip ---------- */
+  .meta {
+    display: grid;
+    grid-template-columns: 7rem 10rem 1fr;
+    gap: 8px 24px;
+    margin: 40px 0 0;
+  }
+  .meta dt { font-weight: 600; }
+  .meta dd { margin: 0; color: var(--tx-2); }
+  .meta > div { display: contents; }
+  @media (max-width: 640px) {
+    .meta { grid-template-columns: 1fr; }
+    .meta > div { display: block; }
+  }
+
+  /* ---------- Visual placeholders ---------- */
+  figure { margin: 0; }
+  .wide { margin-top: 48px; }
+  .ph {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 10;
+    background: var(--ui);
+    border-radius: var(--radius);
+    color: var(--tx-2);
+    font-size: 14px;
+    text-align: center;
+    padding: 16px;
+  }
+  .ph.tall { aspect-ratio: 4 / 5; }
+  figcaption {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--tx-2);
+  }
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 640px) { .pair { grid-template-columns: 1fr; } }
+
+  /* ---------- Iterations ---------- */
+  .round + .round { margin-top: 96px; }
+  .chip {
+    display: inline-block;
+    padding: 2px 12px;
+    border: 1px solid var(--tx);
+    border-radius: 999px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+  }
+  .round .col > .chip { margin-bottom: 16px; }
+  .feedback { color: var(--tx-2); }
+  .feedback strong { color: var(--tx); font-weight: 600; }
+
+  /* ---------- Next project ---------- */
+  .next { padding-block: 128px 96px; }
+  .next a { text-decoration: none; display: inline-block; }
+  .next a:hover h3 { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--accent); }
+  .next p { margin-bottom: 8px; }
+</style>
+</head>
+
+<body>
+
+<header class="site-head">
+  <a href="#top">Will Draper</a>
+</header>
+
+<main id="top">
+
+  <!-- Top: title, meta, hero, 10 second read -->
+  <div class="intro">
+    <div class="col">
+      <h1>[Outcome-style project title] @ [Company]</h1>
+      <dl class="meta">
+        <div><dt>Timeline</dt><dd>[3 months]</dd></div>
+        <div><dt>Role</dt><dd>[Product Manager]</dd></div>
+        <div><dt>Team</dt><dd>[Who you worked with]</dd></div>
+      </dl>
+    </div>
+
+    <div class="wide">
+      <figure>
+        <div class="ph">[Hero: best single screen]</div>
+      </figure>
+    </div>
+
+    <div class="col lead" style="margin-top:48px">
+      <p><strong>Problem</strong> <span class="muted">[One or two lines. Who has the problem and what it costs them.]</span></p>
+      <p><strong>Solution</strong> <span class="muted">[One or two lines. What you shipped or proposed.]</span></p>
+    </div>
+  </div>
+
+  <!-- Section pills: sit above Problem, then stick to top while scrolling -->
+  <div class="jump" id="jump">
+    <nav class="pills" aria-label="Page sections">
+      <a class="pill" href="#problem">Problem</a>
+      <a class="pill" href="#research">Research</a>
+      <a class="pill" href="#iterations">Iterations</a>
+      <a class="pill" href="#final-design">Final design</a>
+      <a class="pill" href="#results">Results</a>
+    </nav>
+  </div>
+
+  <!-- Problem -->
+  <section id="problem">
+    <div class="col">
+      <h2>[The problem, said as a claim]</h2>
+      <p class="muted">[Context. Who is the user, what are they trying to do, and where does it break? Keep it to a short paragraph.]</p>
+      <p class="muted">[The ask. What were you set out to figure out or build?]</p>
+    </div>
+    <div class="wide">
+      <figure>
+        <div class="ph">[Screen or diagram showing the problem]</div>
+        <figcaption>[Caption]</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section id="research">
+    <div class="col">
+      <h2>[What you did to learn, said as a claim]</h2>
+      <p class="muted">[Who you talked to, what you looked at, how many.]</p>
+      <p class="muted">[The one or two findings that shaped the work.]</p>
+    </div>
+    <div class="wide">
+      <figure>
+        <div class="ph">[Research artifact: synthesis, notes, journey map]</div>
+        <figcaption>[Caption]</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Iterations: stack as many rounds as the project had -->
+  <section id="iterations">
+    <div class="round">
+      <div class="col">
+        <span class="chip">v1</span>
+        <h2>[What the first version got wrong or right]</h2>
+        <p class="muted">[What you put out and why.]</p>
+      </div>
+      <div class="wide">
+        <figure>
+          <div class="ph">[v1 screen]</div>
+          <figcaption>[Caption]</figcaption>
+        </figure>
+      </div>
+      <div class="col">
+        <p class="feedback"><strong>Feedback</strong> [Who reacted and what they said.]</p>
+      </div>
+    </div>
+
+    <div class="round">
+      <div class="col">
+        <span class="chip">v2</span>
+        <h3>[What changed because of the feedback]</h3>
+        <p class="muted">[What you changed and the call you made.]</p>
+      </div>
+      <div class="wide">
+        <div class="pair">
+          <figure>
+            <div class="ph">[Before]</div>
+            <figcaption>Before</figcaption>
+          </figure>
+          <figure>
+            <div class="ph">[After]</div>
+            <figcaption>After</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="col">
+        <p class="feedback"><strong>Feedback</strong> [Who reacted and what they said.]</p>
+      </div>
+    </div>
+
+    <div class="round">
+      <div class="col">
+        <span class="chip">v3</span>
+        <h3>[What got locked in]</h3>
+        <p class="muted">[How the loop ended and what became the PRD.]</p>
+      </div>
+      <div class="wide">
+        <figure>
+          <div class="ph">[v3 screen or PRD excerpt]</div>
+          <figcaption>[Caption]</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final design -->
+  <section id="final-design">
+    <div class="col">
+      <h2>[The final design, said as a claim]</h2>
+      <p class="muted">[One short paragraph on the finished flow. Link the PRD here if you want it public.]</p>
+    </div>
+    <div class="wide">
+      <figure>
+        <div class="ph">[Final flow, big visual]</div>
+        <figcaption>[Caption]</figcaption>
+      </figure>
+    </div>
+    <div class="wide">
+      <div class="pair">
+        <figure>
+          <div class="ph tall">[Screen]</div>
+          <figcaption>[Caption]</figcaption>
+        </figure>
+        <figure>
+          <div class="ph tall">[Screen]</div>
+          <figcaption>[Caption]</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section id="results">
+    <div class="col">
+      <h2>[What happened, in one plain line]</h2>
+      <p class="muted">[What shipped, what the team did next, or what changed in how people worked. Drop this section if there is nothing real to say.]</p>
+    </div>
+  </section>
+
+  <!-- Next project -->
+  <div class="next">
+    <div class="col">
+      <p class="muted">Next project</p>
+      <a href="#"><h3>[Next project title]</h3></a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  (function () {
+    var nav = document.querySelector('.pills');
+    var pills = Array.prototype.slice.call(document.querySelectorAll('a.pill'));
+    var sections = pills.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    var current = null;
+    var ticking = false;
+
+    function setActive(i) {
+      if (i === current) return;
+      current = i;
+      pills.forEach(function (p, idx) {
+        if (idx === i) p.setAttribute('aria-current', 'true');
+        else p.removeAttribute('aria-current');
+      });
+      if (i !== null && nav.scrollWidth > nav.clientWidth) {
+        var p = pills[i];
+        nav.scrollTo({ left: p.offsetLeft - nav.clientWidth / 2 + p.clientWidth / 2, behavior: 'smooth' });
+      }
+    }
+
+    function update() {
+      ticking = false;
+      var line = window.innerHeight * 0.35;
+      var active = null;
+      sections.forEach(function (s, i) {
+        if (s.getBoundingClientRect().top <= line) active = i;
+      });
+      var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (atBottom) active = sections.length - 1;
+      setActive(active);
+    }
+
+    function onScroll() {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+</script>
+
+</body>
+</html>

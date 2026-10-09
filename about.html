@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About | Will Draper</title>
+<meta name="description" content="About Will Draper.">
+
+<!-- Set theme before paint to avoid a flash -->
+<script>
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('theme'); } catch (e) {}
+    if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@600&display=swap" rel="stylesheet">
+
+<style>
+  /* Tokens from Figma. Light values are the file's; dark values are Flexoki dark. */
+  :root {
+    --bg: #fffcf0;
+    --tx: #100f0f;
+    --tx-2: #6f6e69;
+    --ui: #e6e4d9;
+    --accent: #bc5215;
+
+    --c-magenta: #a02f6f;
+    --c-yellow: #ad8301;
+    --c-green: #66800b;
+    --c-red: #af3029;
+
+    --serif: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+    --sans: "General Sans", "General Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    --nav-margin: 64px;
+    --nav-h: 120px;
+    --content: 840px;
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    --bg: #100f0f;
+    --tx: #cecdc3;
+    --tx-2: #878580;
+    --ui: #282726;
+    --accent: #da702c;
+
+    --c-magenta: #ce5d97;
+    --c-yellow: #d0a215;
+    --c-green: #879a39;
+    --c-red: #d14d41;
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--tx);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+  }
+  p, h1, h2 { margin: 0; }
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    height: var(--nav-h);
+    padding-inline: var(--nav-margin);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .nav-inner {
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo, .nav-links a {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: 19px;
+    line-height: 25px;
+  }
+  .logo { padding-block: 4px; }
+  .nav-right { display: flex; align-items: center; gap: 100px; }
+  .nav-links { display: flex; align-items: center; gap: 29px; }
+  .nav-links a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; text-decoration-thickness: 2px; }
+
+  /* Light / dark switch */
+  .mode {
+    position: relative;
+    width: 42px;
+    height: 19px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: var(--ui);
+    color: var(--tx-2);
+    cursor: pointer;
+  }
+  .mode::after { content: ""; position: absolute; inset: -12px -6px; }
+  .mode-knob {
+    position: absolute;
+    top: 1.5px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    transition: transform .2s ease;
+  }
+  :root[data-theme="dark"] .mode-knob { transform: translateX(20px); }
+  .mode-icon {
+    position: absolute;
+    top: 1.5px;
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .mode-icon.moon { right: 3px; }
+  .mode-icon.sun { left: 3px; display: none; }
+  :root[data-theme="dark"] .mode-icon.moon { display: none; }
+  :root[data-theme="dark"] .mode-icon.sun { display: block; }
+
+  /* ---------- About ---------- */
+  .nav-links a[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+
+  .col {
+    width: min(38rem, 100% - 48px);
+    margin-inline: auto;
+  }
+  .about { padding-block: 40px 124px; }
+
+  .about h1 {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(28px, 4.2vw, 38px);
+    line-height: 1.2;
+  }
+  .about h2 {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: 19px;
+    line-height: 25px;
+    margin-top: 64px;
+  }
+
+  .about p { line-height: 26px; }
+  .about h1 + p { margin-top: 32px; }
+  .about p + p { margin-top: 20px; }
+  .about h2 + p { margin-top: 12px; }
+
+  .links { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 12px; }
+  .links a {
+    text-decoration: underline;
+    text-decoration-color: var(--ui);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color .15s;
+  }
+  .links a:hover { text-decoration-color: var(--accent); }
+
+  @media (max-width: 720px) {
+    :root { --nav-margin: 24px; --nav-h: 88px; }
+    .nav-right { gap: 24px; }
+    .nav-links { gap: 20px; }
+    .about { padding-bottom: 80px; }
+  }
+</style>
+</head>
+
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">Will Draper</a>
+    <div class="nav-right">
+      <nav class="nav-links" aria-label="Main">
+        <a href="about.html" aria-current="page">About</a>
+        <a href="playground.html">Playground</a>
+      </nav>
+      <button class="mode" id="mode" type="button" role="switch" aria-checked="false" aria-label="Dark mode">
+        <span class="mode-knob"></span>
+        <svg class="mode-icon moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg>
+        <svg class="mode-icon sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2.6"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="about">
+  <div class="col">
+    <h1>About</h1>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.</p>
+
+    <h2>Outside of work</h2>
+    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.</p>
+
+    <h2>Elsewhere</h2>
+    <div class="links">
+      <a href="assets/resume.pdf">Resume</a>
+      <a href="https://www.linkedin.com/in/your-handle">LinkedIn</a>
+      <a href="mailto:you@example.com">Email</a>
+    </div>
+  </div>
+</main>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('mode');
+
+    function sync() {
+      btn.setAttribute('aria-checked', root.getAttribute('data-theme') === 'dark' ? 'true' : 'false');
+    }
+    sync();
+
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+      sync();
+    });
+  })();
+</script>
+
+</body>
+</html>
